@@ -39,5 +39,17 @@ router.get('/:id', async(req, res) => {
  
  });
  
+ router.post('/', async(req, res) => {
+  
+  const postData = req.body
+  try {
+   const post = await db('posts').insert(postData)
+   res.status(201).json(post)
+  }catch(error){
+   res.status(500).json({message: "Failed to create the new post"})
+  }
+ 
+ });
+ 
  
 module.exports = router;
