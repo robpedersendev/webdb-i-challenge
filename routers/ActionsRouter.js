@@ -50,7 +50,7 @@ router.get('/:id', async(req, res) => {
   }
  
  });
- 
+
  router.put('/:id', async(req, res) => {
   const {id} = req.params;
   const changes = req.body;
@@ -67,7 +67,20 @@ router.get('/:id', async(req, res) => {
   }
   
   });
-  
-  
+    
+  router.delete('/:id', async(req, res) => {
+   const {id} = req.params;
+   
+   try{
+    const deletedRow = await db('posts').where({id}).del()
+    if(deletedRow){
+     res.status(200).json({Deleted: deletedRow})
+    }else {
+     res.status(404).json({message: `Could not delete post#${id}`})
+    }
+   }catch(error){
+    res.status(500).json({message: "Could not delete the post", error: error})
+   }
+  });
  
 module.exports = router;
