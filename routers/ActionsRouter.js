@@ -8,12 +8,12 @@ router.get('/', async(req, res) => {
  
  try{
   // Shows the actual query made to the db
-  // const query =db.select('*').from('posts')
+  // const query =db.select('*').from('accounts')
   // console.log(query)
-  const posts = await db('posts');
-  res.status(200).json(posts)
+  const accounts = await db('accounts');
+  res.status(200).json(accounts)
  }catch (error){
-  res.status(500).json({message: "error retrieving posts", error:error})
+  res.status(500).json({message: "error retrieving accounts", error:error})
  }
 
 });
@@ -23,10 +23,10 @@ router.get('/:id', async(req, res) => {
  const {id} =req.params
   try{
    // Shows the actual query made to the db
-   // const query =db.select('*').from('posts')
+   // const query =db.select('*').from('accounts')
    // console.log(query)
    
-   const [post] = await db.select('*').from('posts').where({id});
+   const [post] = await db.select('*').from('accounts').where({id});
    if (post) {
     res.status(200).json(post);
    } else {
@@ -43,7 +43,7 @@ router.get('/:id', async(req, res) => {
   
   const postData = req.body
   try {
-   const post = await db('posts').insert(postData)
+   const post = await db('accounts').insert(postData)
    res.status(201).json(post)
   }catch(error){
    res.status(500).json({message: "Failed to create the new post"})
@@ -56,7 +56,7 @@ router.get('/:id', async(req, res) => {
   const changes = req.body;
   
   try{
-   const count =await db('posts').where('id', '=', id).update(changes)
+   const count =await db('accounts').where('id', '=', id).update(changes)
    if(count){
     res.status(200).json({updated: count})
    }else {
@@ -72,7 +72,7 @@ router.get('/:id', async(req, res) => {
    const {id} = req.params;
    
    try{
-    const deletedRow = await db('posts').where({id}).del()
+    const deletedRow = await db('accounts').where({id}).del()
     if(deletedRow){
      res.status(200).json({Deleted: deletedRow})
     }else {
