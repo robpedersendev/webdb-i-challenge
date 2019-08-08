@@ -2,13 +2,13 @@ const express = require('express');
 
 const db = require('./data/dbConfig.js');
 
-const ActionsRouter = require('./routers/ActionsRouter');
+const AccountsRouter = require('./routers/AccountsRouter');
 
 const server = express();
 
 server.use(express.json());
 
-server.use('/api/actions', ActionsRouter);
+server.use('/api/accounts', AccountsRouter);
 
 
 server.get('/', (req, res) => {

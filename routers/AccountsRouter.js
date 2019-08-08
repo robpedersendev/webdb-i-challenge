@@ -26,27 +26,27 @@ router.get('/:id', async(req, res) => {
    // const query =db.select('*').from('accounts')
    // console.log(query)
    
-   const [post] = await db.select('*').from('accounts').where({id});
-   if (post) {
-    res.status(200).json(post);
+   const [accounts] = await db.select('*').from('accounts').where({id});
+   if (accounts) {
+    res.status(200).json(accounts);
    } else {
-    res.status(400).json({message: `Could not find post with id ${id}`})
+    res.status(400).json({message: `Could not find accounts with id ${id}`})
    }
    
   }catch (error){
-   res.status(500).json({message: "Could not get specific post", error:error})
+   res.status(500).json({message: "Could not get specific accounts", error:error})
   }
  
  });
  
  router.post('/', async(req, res) => {
   
-  const postData = req.body
+  const accountsData = req.body
   try {
-   const post = await db('accounts').insert(postData)
-   res.status(201).json(post)
+   const accounts = await db('accounts').insert(accountsData)
+   res.status(201).json(accounts)
   }catch(error){
-   res.status(500).json({message: "Failed to create the new post"})
+   res.status(500).json({message: "Failed to create the new accounts"})
   }
  
  });
@@ -60,10 +60,10 @@ router.get('/:id', async(req, res) => {
    if(count){
     res.status(200).json({updated: count})
    }else {
-    res.status(404).json({message: `Could not find post#${id}`})
+    res.status(404).json({message: `Could not find accounts#${id}`})
    }
   }catch(error){
-   res.status(500).json({message: "Could not update the post", error: error})
+   res.status(500).json({message: "Could not update the accounts", error: error})
   }
   
   });
@@ -76,10 +76,10 @@ router.get('/:id', async(req, res) => {
     if(deletedRow){
      res.status(200).json({Deleted: deletedRow})
     }else {
-     res.status(404).json({message: `Could not delete post#${id}`})
+     res.status(404).json({message: `Could not delete accounts#${id}`})
     }
    }catch(error){
-    res.status(500).json({message: "Could not delete the post", error: error})
+    res.status(500).json({message: "Could not delete the accounts", error: error})
    }
   });
  
