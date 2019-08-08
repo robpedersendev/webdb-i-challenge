@@ -51,5 +51,23 @@ router.get('/:id', async(req, res) => {
  
  });
  
+ router.put('/:id', async(req, res) => {
+  const {id} = req.params;
+  const changes = req.body;
+  
+  try{
+   const count =await db('posts').where('id', '=', id).update(changes)
+   if(count){
+    res.status(200).json({updated: count})
+   }else {
+    res.status(404).json({message: `Could not find post#${id}`})
+   }
+  }catch(error){
+   res.status(500).json({message: "Could not update the post", error: error})
+  }
+  
+  });
+  
+  
  
 module.exports = router;
